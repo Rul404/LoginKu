@@ -4,15 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <main id="main">
         <h1>Selamat Datang</h1>
+        <h3 id="salah">Login Gagal</h3>
         <div>
             <input type="text" placeholder="Username" id="usernameInput">
-            <input type="password" placeholder="passwordInput" id="passwordInput">
+            <input type="password" placeholder="Password" id="passwordInput">
             <section>
                 <input type="checkbox">
                 <a href="#">Lupa Paswword?</a>
@@ -28,38 +29,44 @@
     </main>
     <script type="application/javascript">
         
-let usernameInput = document.getElementById('usernameInput');
-let passwordInput  = document.getElementById('passwordInput');
-let loginButton = document.getElementById('loginButton');
-let admin = document.getElementById('admin');
-let salah = document.getElementById('salah');
-let main = document.getElementById('main');
+    let usernameInput = document.getElementById('usernameInput');
+    let passwordInput  = document.getElementById('passwordInput');
+    let loginButton = document.getElementById('loginButton');
+    let admin = document.getElementById('admin');
+    let salah = document.getElementById('salah');
+    let main = document.getElementById('main');
 
+    salah.style.display = "none";
+    salah.style.margin = "-8px";
+    salah.style.fontSize = "16px";
+    salah.style.fontFamily = "arial";
+    salah.style.color = "red";
 
-function onLogin() {
-    console.log('tombol login di klik');
-    console.log(usernameInput.value);
-    console.log(passwordInput.value);
+    function onLogin() {
+        console.log('tombol login di klik');
+        console.log(usernameInput.value);
+        console.log(passwordInput.value);
 
-    if(usernameInput.value == "admin" & passwordInput.value == "123") {
+        if(usernameInput.value == "admin" & passwordInput.value == "123") {
+            alert('Login Berhasil');
+            main.style.display = "none";
+            window.location.href = "/Layout/dasboard.html"
+            localStorage.setItem("username", usernameInput.value);
+            localStorage.setItem("role", "admin");
+        } else {
+            alert('Login Gagal Password Atau Username Anda Salah')
+            salah.style.display = "block";
+        }
+    }
+
+    // Bagian Untuk Menghilangkan Elemen Input Untuk Setelah Bisa Login
+    if(localStorage.getItem('username')){
         main.style.display = "none";
-        window.location.href = "https://rul404.github.io/Miftahul-Falah/"
-        localStorage.setItem("username", usernameInput.value);
-        localStorage.setItem("role", "admin");
-    } else {
-        alert('Login Gagal Password Atau Username Anda Salah')
-        admin.style.display = "none";
+        salah.style.display = "block";
     }
-}
-
-// Bagian Untuk Menghilangkan Elemen Input Untuk Setelah Bisa Login
-if(localStorage.getItem('username')){
-    main.style.display = "none";
-
-    if(localStorage.getItem('role') == "admin") {
-        admin.style.display = "block";
-    }
-} 
+        if(localStorage.getItem('role') == "admin") {
+            admin.style.display = "block";
+    } 
     </script>
 </body>
 </html>
